@@ -3,15 +3,17 @@ from pathlib import Path
 from typing import Optional
 import os
 
-try:
-    from pydantic_settings import BaseSettings
-except ImportError:
-    from pydantic import BaseSettings
-
-from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings
+from pydantic import Field, field_validator, ConfigDict
 
 
 class Settings(BaseSettings):
+    model_config = ConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        env_prefix="TUG_",
+    )
+
     # Database
     database_url: str | None = Field(
         default=None,
@@ -48,11 +50,6 @@ class Settings(BaseSettings):
             # Split by comma and strip whitespace
             return [origin.strip() for origin in v.split(",") if origin.strip()]
         return v
-
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        env_prefix = "TUG_"
 
 
 @lru_cache
