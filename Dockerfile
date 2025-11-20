@@ -13,7 +13,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY backend/ ./backend/
-COPY backend/data/ ./backend/data/ 2>/dev/null || true
 
 # Create data directory if it doesn't exist
 RUN mkdir -p /app/backend/data
