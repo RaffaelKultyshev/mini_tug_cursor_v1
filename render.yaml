@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: mini-tug-backend
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: TUG_ALLOWED_ORIGINS
+        sync: false
+      - key: TUG_DOCAI_KEY_JSON
+        sync: false
+      - key: TUG_DOCAI_PROJECT_ID
+        value: 361271679946
+      - key: TUG_DOCAI_LOCATION
+        value: eu
+      - key: TUG_DOCAI_PROCESSOR_ID
+        value: 2ee67d07894fd7f1
+      - key: PYTHON_VERSION
+        value: 3.12.0
+
